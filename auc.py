@@ -46,7 +46,7 @@ def auc():
         if event[2] == 'N':
             tn = tn - 1
             fp = fp + 1
-        else:
+        if event[2] == 'P':
             fn = fn - 1
             tp = tp + 1
         tpr.append(tp/(tp+fn))
@@ -57,6 +57,9 @@ def auc():
         area = area + ((fpr[i+1] - fpr[i]) * (tpr[i]+tpr[i+1])) / 2
     print ("Area: ") 
     print(area)
+    with open('auc.txt', 'w') as f:
+        f.write(str(area))
+    f.close()
     
 #main function 
 if __name__ == '__main__':
