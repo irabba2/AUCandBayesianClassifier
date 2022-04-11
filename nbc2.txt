@@ -4,8 +4,8 @@ m, s, t
 g, q, t
 h, s, t
 g, q, t
-g, q, t
+g, q, f
 g, s, f
 h, b, f
 h, q, f
-m, b, g
+m, b, f
