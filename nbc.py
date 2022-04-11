@@ -7,8 +7,8 @@ import csv
 from math import sqrt
 from math import pi 
 from math import exp
+from decimal import *
 
-#get the standard deviation and mean for every column (A1, A2, A3, etc.)
 def data_by_cols(all):
     data = []
     #i is the row in the data
@@ -38,9 +38,6 @@ P(A1= z | C=1) = 0.4
 P(A1= a | C=0) = 0.2
 P(A1= z | C=0) = 0.3'''
 
-#formula for the gaussian probability distribution function 
-def gaussian_probability(mean, stdev, x):
-    g_pdf = (1 / sqrt(2 * pi) * stdev) * exp(-((x-mean)^2 / (2 * stdev**2)))
 
 def get_unique_vals(colData):
     uniqueVals = []
@@ -57,7 +54,7 @@ def get_class_vals(uniqueVals):
     classVals = uniqueVals[-1] #last list in uniqueVals are the class values 
     return classVals
 
-def compute_class_prob(classVals):
+def compute_class(classVals):
     #figure out total number of uniques in C 
     class_counts = dict()
     b = []
@@ -130,7 +127,7 @@ def predict_class(probs, train, test, class_counts):
     for i in probs:
         z = str(i[1]) + str(i[0])
         probs2.append(z)
-        x = i[2]
+        x = float(i[2])
         probs2.append(x)
 
     it = iter(probs2)
@@ -146,7 +143,7 @@ def predict_class(probs, train, test, class_counts):
     for x in class_counts:
         temp2[x] = temp
     
-    
+    temp3 = dict
     a = ""
     all = []
     for key, values in temp2.items():
@@ -154,12 +151,11 @@ def predict_class(probs, train, test, class_counts):
             cal = 0
             for i in v:
                 a = str(key) + str(i)
-                print(a)
                 cal = cal * prob_dic[a]
             cal = cal * class_prob[key]
-            all.append(cal)
-    
-    with open('NB_test_smoothing.txt,', 'w') as f:
+            all.append(Decimal(cal))
+            
+    with open('NB_test_smoothing.txt', 'w') as f:
         for i in all:
             f.write(str(i) + '\n')
     
@@ -201,7 +197,7 @@ if __name__ == '__main__':
     colData = data_by_cols(train)
     uniqueVals = get_unique_vals(colData)
     classVals = get_class_vals(uniqueVals)
-    class_counts = compute_class_prob(classVals)
+    class_counts = compute_class(classVals)
     probability = compute_probability(colData, train, uniqueVals, classVals, class_counts) #just lists 
     text = print_probs(probability, class_counts)
     prediction = predict_class(probability, train, test, class_counts)
